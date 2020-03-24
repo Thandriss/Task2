@@ -13,11 +13,11 @@ public class ComLine {
     @Option(name = "word", metaVar = "Word", required = true, usage = "Give word to find all lines")
     String word;
 
-    @Option(name = "-i", metaVar = "Ignore", usage = "Ignore case")
-    boolean flag;
+    @Option(name = "-i", metaVar = "Ignore", required = true, usage = "Ignore case")
+    boolean flag = true;
 
-    @Option(name = "-v", metaVar = "Name", usage = "name")
-    boolean invertFlag;
+    @Option(name = "-v", metaVar = "Name", required = true, usage = "name")
+    boolean invertFlag = true;
 
     @Argument(required = true, metaVar = "in", usage = "input")
     String file;

@@ -3,30 +3,38 @@ package grep;
 
 
 import jdk.nashorn.internal.runtime.regexp.joni.Regex;
+import org.omg.CORBA.Any;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
-public class grep {
-    String fileToWork;
+public class Grep {
+    File fileToWork;
     String wordToWork;
     Regex regexToWork;
 
 
-    grep (String word, String file) {
+    public Grep (String word, File file) {
          this.fileToWork = file;
          this.wordToWork = word;
     }
 
-    grep (Regex regex, String file) {
+    public Grep (Regex regex, File file) {
         this.regexToWork = regex;
         this.fileToWork = file;
     }
-    grep () {
+    public Grep () {
 
     }
+    private boolean haveOrNot(String smth, String[] words) {
+        for (String word: words) {
+            if (word.equals(word)) return true;
+        }
+        return false;
+    }
 
-    ArrayList<String> filterByWord () throws IOException {
+    public List<String> filterByWord () throws IOException {
         boolean flag = false;
         ArrayList<String> answer = new ArrayList<String>();
         BufferedReader newFile = new BufferedReader(new FileReader(fileToWork));
@@ -44,7 +52,7 @@ public class grep {
     }
 
 
-    public ArrayList<String> filterByRegex () throws IOException {
+    public List<String> filterByRegex () throws IOException {
         boolean flag = false;
         ArrayList<String> answer = new ArrayList<String>();
         BufferedReader newFile = new BufferedReader(new FileReader(fileToWork));
@@ -62,7 +70,7 @@ public class grep {
     }
 
 
-    public ArrayList<String> invert (ArrayList<String> listToDelete) throws IOException {
+    public List<String> invert (ArrayList<String> listToDelete) throws IOException {
         ArrayList<String> answer = new ArrayList<String>();
         BufferedReader newFile = new BufferedReader(new FileReader(fileToWork));
         for (String line; (line = newFile.readLine()) != null;) {
@@ -71,19 +79,13 @@ public class grep {
         return  answer;
     }
 
-    public ArrayList<String> ignoreCase () throws IOException {
-        boolean flag = false;
+    public List<String> ignoreCase () throws IOException {
         ArrayList<String> answer = new ArrayList<String>();
-        BufferedReader newFile = new BufferedReader(new FileReader(fileToWork));
+        FileReader read = new FileReader(fileToWork);
+        BufferedReader newFile = new BufferedReader(read);
         for (String line; (line = newFile.readLine()) != null; ) {
-            String[] wordsInLine = line.split(" ");
-            for (String someWord: wordsInLine) {
-                if (someWord.toLowerCase().equals(wordToWork)) {
-                    flag = true;
-                    break;
-                } else flag = false;
-            }
-            if (flag) answer.add(line);
+            String[] wordsInLine = line.toLowerCase().split(" ");
+            if (haveOrNot(wordToWork.toLowerCase(), wordsInLine)) answer.add(line);
         }
         return answer;
     }

@@ -3,7 +3,7 @@ package grep;
 
 
 import jdk.nashorn.internal.runtime.regexp.joni.Regex;
-import org.omg.CORBA.Any;
+
 
 import java.io.*;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class Grep {
     }
     private boolean haveOrNot(String smth, String[] words) {
         for (String word: words) {
-            if (word.equals(word)) return true;
+            if (word.matches(smth)) return true;
         }
         return false;
     }
@@ -40,31 +40,18 @@ public class Grep {
         BufferedReader newFile = new BufferedReader(new FileReader(fileToWork));
         for (String line; (line = newFile.readLine()) != null; ) {
             String[] wordsInLine = line.split(" ");
-            for (String someWord: wordsInLine) {
-                if (someWord.equals(wordToWork)) {
-                    flag = true;
-                    break;
-                } else flag = false;
-            }
-            if (flag) answer.add(line);
+            if (haveOrNot(wordToWork, wordsInLine)) answer.add(line);
         }
         return answer;
     }
 
 
     public List<String> filterByRegex () throws IOException {
-        boolean flag = false;
         ArrayList<String> answer = new ArrayList<String>();
         BufferedReader newFile = new BufferedReader(new FileReader(fileToWork));
         for (String line; (line = newFile.readLine()) != null;) {
             String[] wordsInLine = line.split(" ");
-            for (String someWord: wordsInLine) {
-                if (someWord.matches(regexToWork.toString())) {
-                    flag = true;
-                    break;
-                } else flag = false;
-            }
-            if (flag) answer.add(line);
+            if (haveOrNot(wordToWork, wordsInLine)) answer.add(line);
         }
         return answer;
     }

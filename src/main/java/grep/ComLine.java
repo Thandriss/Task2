@@ -8,20 +8,41 @@ import java.io.File;
 
 
 public class ComLine {
+
     @Option(name = "-r", metaVar = "Regex", usage = "Give regex to find all lines", forbids = "-i")
-    boolean regex;
+    private boolean regex;
 
     @Argument(metaVar = "Word", required = true, usage = "Give word to find all lines")
-    String word;
+    private String word;
 
     @Option(name = "-i", metaVar = "Ignore", usage = "Ignore case")
-    boolean flag = true;
+    private boolean flag;
 
     @Option(name = "-v", metaVar = "Name", usage = "name")
-    boolean invertFlag = true;
+    private boolean invertFlag;
 
-    @Argument(required = true, metaVar = "in", usage = "input")
-    File file;
+    @Argument(required = true, metaVar = "in", index = 1, usage = "input")
+    private File file;
+
+    public String getWord() {
+        return word;
+    }
+
+    public boolean isInvertFlag() {
+        return invertFlag;
+    }
+
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public boolean isRegex() {
+        return regex;
+    }
 
     public ComLine(String[] args) {
         CmdLineParser parser = new CmdLineParser(this);

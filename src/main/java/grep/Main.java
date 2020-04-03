@@ -2,31 +2,27 @@ package grep;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main (String[] args) throws IOException {
         ComLine data = new ComLine(args);
-        Grep newOne = new Grep(data.word, data.file);
-        ArrayList<String> a;
-        if (data.word != null) {
-            if (data.flag) {
-                a = (ArrayList<String>) newOne.ignoreCase();
+        Grep newOne = new Grep(data.getWord(), data.getFile());
+        List<String> a;
+        if (data.isRegex()) {
+            a = newOne.filterByRegex();
+        } else {
+            if (data.isFlag()) {
+                a = newOne.ignoreCase();
             } else {
-                a = (ArrayList<String>) newOne.filterByWord();
+                a = newOne.filterByWord();
             }
-        } else {
-            a = (ArrayList<String>) newOne.filterByRegex();
         }
-        if (data.invertFlag) {
-            a = (ArrayList<String>) newOne.invert(a);
-            for (String i: a){
-                System.out.println(i);
-            }
-        } else {
-            for (String i: a){
-                System.out.println(i);
-            }
+        if (data.isInvertFlag()) {
+            a = newOne.invert(a);
+        }
+        for (String i: a) {
+            System.out.println(i);
         }
     }
 }

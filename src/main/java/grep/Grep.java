@@ -3,6 +3,8 @@ package grep;
 
 
 
+import com.sun.org.apache.xerces.internal.impl.io.UTF8Reader;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,26 +28,29 @@ public class Grep {
         return false;
     }
 
-    private Exception ex (String w) {
-        if (w.equals("") || w == null) throw new IllegalArgumentException("Не правильно введено слово или вообще не введено, попробуйте ещё раз");
-        else return null;
+    private boolean ex (String w) {
+        return w.equals("") || w == null;
     }
 
     public List<String> filterByWord () throws IOException {
-        ex(wordToWork);
-        ArrayList<String> answer = new ArrayList<String>();
-        BufferedReader newFile = new BufferedReader(new FileReader(fileToWork));
-        for (String line; (line = newFile.readLine()) != null; ) {
-            String[] wordsInLine = line.split(" ");
-            if (haveOrNot(wordToWork, wordsInLine)) answer.add(line);
+        try {
+            if (ex(wordToWork)) throw new IllegalArgumentException();
+            ArrayList<String> answer = new ArrayList<String>();
+            BufferedReader newFile = new BufferedReader(new FileReader(fileToWork));
+            for (String line; (line = newFile.readLine()) != null; ) {
+                String[] wordsInLine = line.split(" ");
+                if (haveOrNot(wordToWork, wordsInLine)) answer.add(line);
+            }
+            newFile.close();
+            return answer;
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException();
         }
-        newFile.close();
-        return answer;
     }
 
 
     public List<String> filterByRegex () throws IOException {
-        ex(wordToWork);
+        if (ex(wordToWork)) throw new IllegalArgumentException();
         ArrayList<String> answer = new ArrayList<String>();
         BufferedReader newFile = new BufferedReader(new FileReader(fileToWork));
         for (String line; (line = newFile.readLine()) != null;) {
@@ -58,7 +63,7 @@ public class Grep {
 
 
     public List<String> invert (List<String> listToDelete) throws IOException {
-        ex(wordToWork);
+        if (ex(wordToWork)) throw new IllegalArgumentException();
         ArrayList<String> answer = new ArrayList<String>();
         BufferedReader newFile = new BufferedReader(new FileReader(fileToWork));
         for (String line; (line = newFile.readLine()) != null;) {
@@ -69,7 +74,7 @@ public class Grep {
     }
 
     public List<String> ignoreCase () throws IOException {
-        ex(wordToWork);
+        if (ex(wordToWork)) throw new IllegalArgumentException();
         ArrayList<String> answer = new ArrayList<String>();
         FileReader read = new FileReader(fileToWork);
         BufferedReader newFile = new BufferedReader(read);

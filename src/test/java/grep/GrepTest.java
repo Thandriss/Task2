@@ -1,14 +1,13 @@
 package grep;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class GrepTest {
     Grep a = new Grep();
@@ -34,7 +33,7 @@ class GrepTest {
         b.add("Ананасы в шампанском! Ананасы в шампанском!");
         assertArrayEquals(b, a.ignoreCase());
         a = new Grep("", new File("example456.txt"));
-        assertThrows(IllegalArgumentException.class, (Executable) a.ignoreCase());
+        assertThrows(IllegalArgumentException.class, () -> a.ignoreCase());
     }
 
 
@@ -59,9 +58,8 @@ class GrepTest {
         a = new Grep("ПрЕзИдЕнТ", new File("dfgherty.txt"));
         assertArrayEquals(b, a.filterByWord());
         b.clear();
-        a = new Grep("ПрЕзИдЕнТ", new File("dfgherty1.txt"));
         a = new Grep("", new File("dfgherty.txt"));
-        assertThrows(IllegalArgumentException.class, (Executable) a.filterByWord());
+        assertThrows(IllegalArgumentException.class, () -> a.filterByWord());
     }
 
 
@@ -87,7 +85,8 @@ class GrepTest {
         b.add("Я трагедию жизни претворю в грезофарс...");
         assertArrayEquals(b, a.filterByRegex());
         a = new Grep("", new File("456456456toFind.txt"));
-        assertThrows(IllegalArgumentException.class, (Executable) a.filterByRegex());
+        Grep finalA = a;
+        assertThrows(IllegalArgumentException.class, () -> finalA.filterByRegex());
     }
 
 
@@ -117,11 +116,11 @@ class GrepTest {
         a = new Grep("Президент", new File("dfgherty.txt"));
         assertArrayEquals(b, a.invert(a.filterByWord()));
         a = new Grep("", new File("456456456toFind.txt"));
-        assertThrows(IllegalArgumentException.class, (Executable) a.filterByRegex());
+        assertThrows(IllegalArgumentException.class, () -> a.filterByRegex());
     }
 
 
-    private boolean assertArrayEquals(ArrayList<String> expected, List<String> actual) {
+    private boolean assertArrayEquals(List<String> expected, List<String> actual) {
         if (expected.size() == actual.size()) {
             for (int i = 0; i != expected.size(); i++) {
                 if (expected.get(i).equals(actual.get(i))) {

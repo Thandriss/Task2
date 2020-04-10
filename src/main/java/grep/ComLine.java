@@ -1,6 +1,7 @@
 package grep;
 
 import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 
@@ -48,8 +49,7 @@ public class ComLine {
         CmdLineParser parser = new CmdLineParser(this);
         try{
             parser.parseArgument(args);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IllegalArgumentException | CmdLineException e) {
             System.out.println("Неверно указан параметр. Попробуйте еще раз");
         }
     }

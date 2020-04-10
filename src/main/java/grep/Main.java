@@ -1,7 +1,9 @@
 package grep;
 
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
 public class Main {
@@ -10,12 +12,12 @@ public class Main {
         Grep newOne = new Grep(data.getWord(), data.getFile());
         List<String> a;
         if (data.isRegex()) {
-            a = newOne.filterByRegex();
+            a = newOne.filter();
         } else {
             if (data.isFlag()) {
                 a = newOne.ignoreCase();
             } else {
-                a = newOne.filterByWord();
+                a = newOne.filter();
             }
         }
         if (data.isInvertFlag()) {

@@ -17,7 +17,7 @@ public class Grep {
     Grep(String word, File file) {
         this.fileToWork = file;
         this.wordToWork = word;
-        if (word.equals("")) throw new IllegalArgumentException("Данные введены не корректно");
+        if (word.equals("") || !file.toString().matches(".+\\.txt") || file == null) throw new IllegalArgumentException("Данные введены не корректно");
     }
 
     private boolean haveOrNot(String smth, String[] words) {
@@ -29,7 +29,7 @@ public class Grep {
 
 
     public List<String> filter() throws IOException {
-        try (BufferedReader newFile = Files.newBufferedReader(fileToWork.toPath(), StandardCharsets.UTF_8);) {
+        try (BufferedReader newFile = Files.newBufferedReader(fileToWork.toPath(), StandardCharsets.UTF_8)) {
             ArrayList<String> answer = new ArrayList<String>();
             for (String line; (line = newFile.readLine()) != null; ) {
                 String[] wordsInLine = line.split(" ");
@@ -42,7 +42,7 @@ public class Grep {
 
 
     public List<String> invert (List<String> listToDelete) throws IOException {
-        try (BufferedReader newFile = Files.newBufferedReader(fileToWork.toPath(), StandardCharsets.UTF_8);) {
+        try (BufferedReader newFile = Files.newBufferedReader(fileToWork.toPath(), StandardCharsets.UTF_8)) {
             ArrayList<String> answer = new ArrayList<String>();
             for (String line; (line = newFile.readLine()) != null; ) {
                 if (!listToDelete.contains(line)) answer.add(line);
@@ -53,7 +53,7 @@ public class Grep {
     }
 
     public List<String> ignoreCase () throws IOException {
-        try (BufferedReader newFile = Files.newBufferedReader(fileToWork.toPath(), StandardCharsets.UTF_8);) {
+        try (BufferedReader newFile = Files.newBufferedReader(fileToWork.toPath(), StandardCharsets.UTF_8)) {
             ArrayList<String> answer = new ArrayList<String>();
             for (String line; (line = newFile.readLine()) != null; ) {
                 String[] wordsInLine = line.toLowerCase().split(" ");

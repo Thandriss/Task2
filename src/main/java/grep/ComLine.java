@@ -19,10 +19,10 @@ public class ComLine {
     @Option(name = "-i", metaVar = "Ignore", usage = "Ignore case")
     private boolean flag;
 
-    @Option(name = "-v", metaVar = "Name", usage = "name")
+    @Option(name = "-v", metaVar = "invert", usage = "invert")
     private boolean invertFlag;
 
-    @Argument(required = true, metaVar = "in", index = 1, usage = "input")
+    @Argument(required = true, metaVar = "inFile", index = 1, usage = "input File")
     private File file;
 
     public String getWord() {
@@ -50,7 +50,7 @@ public class ComLine {
         try{
             parser.parseArgument(args);
         } catch (IllegalArgumentException | CmdLineException e) {
-            System.out.println("РќРµРІРµСЂРЅРѕ СѓРєР°Р·Р°РЅ РїР°СЂР°РјРµС‚СЂ. РџРѕРїСЂРѕР±СѓР№С‚Рµ РµС‰Рµ СЂР°Р·");
+            System.err.println("Неверно указан параметр. Попробуйте еще раз");
         }
     }
 }

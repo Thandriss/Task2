@@ -1,8 +1,6 @@
 package grep;
 
 
-
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -10,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Grep {
-    File fileToWork;
-    String wordToWork;
+    private File fileToWork;
+    private String wordToWork;
 
 
     Grep(String word, File file) {

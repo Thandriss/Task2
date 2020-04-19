@@ -21,8 +21,6 @@ public class Main {
             }
             if (data.isInvertFlag() && !data.getWord().isEmpty()) {
                 a = new Grep(data.getWord(), data.getFile()).invert(a);
-            } else {
-                System.err.println("Что-то пошло не так");
             }
             for (String i: a) {
                 System.out.println(i);

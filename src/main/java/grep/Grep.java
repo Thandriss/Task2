@@ -12,7 +12,7 @@ public class Grep {
     private String wordToWork;
 
 
-    Grep(String word, File file) {
+    public Grep(String word, File file) {
         this.fileToWork = file;
         this.wordToWork = word;
         if (word.equals("") || !file.toString().matches(".+\\.txt") || file == null) throw new IllegalArgumentException("Данные введены не корректно");
@@ -33,7 +33,6 @@ public class Grep {
                 String[] wordsInLine = line.split(" ");
                 if (haveOrNot(wordToWork, wordsInLine)) answer.add(line);
             }
-            newFile.close();
             return answer;
         }
     }
@@ -45,7 +44,6 @@ public class Grep {
             for (String line; (line = newFile.readLine()) != null; ) {
                 if (!listToDelete.contains(line)) answer.add(line);
             }
-            newFile.close();
             return answer;
         }
     }
@@ -57,7 +55,6 @@ public class Grep {
                 String[] wordsInLine = line.toLowerCase().split(" ");
                 if (haveOrNot(wordToWork.toLowerCase(), wordsInLine)) answer.add(line);
             }
-            newFile.close();
             return answer;
         }
     }

@@ -49,6 +49,8 @@ public class ComLine {
         CmdLineParser parser = new CmdLineParser(this);
         try{
             parser.parseArgument(args);
+            boolean flag = file.toString().matches(".+\\.txt");
+            if (!flag) throw new IllegalArgumentException();
         } catch (IllegalArgumentException | CmdLineException e) {
             System.err.println("Неверно указан параметр. Попробуйте еще раз");
         }

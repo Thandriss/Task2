@@ -25,8 +25,8 @@ public class Main {
             for (String i: a) {
                 System.out.println(i);
             }
-        } catch (IllegalArgumentException e) {
-            System.err.println(e.getMessage());
+        } catch (IllegalArgumentException | NullPointerException e) {
+            System.exit(-1);
         }
     }
 }

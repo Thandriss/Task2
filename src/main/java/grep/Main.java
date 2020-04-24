@@ -21,7 +21,7 @@ public class Main {
                 return;
             }
             if (a == null) {
-                System.out.println("Что-то пошло не так");
+                System.err.println("Что-то пошло не так");
                 return;
             }
             if (data.isInvertFlag() && !data.getWord().isEmpty()) {

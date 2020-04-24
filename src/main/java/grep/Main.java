@@ -18,10 +18,11 @@ public class Main {
                 }
             } else {
                 System.err.println("Что-то пошло не так");
+                return;
             }
             if (a == null) {
                 System.out.println("Что-то пошло не так");
-                System.exit(1);
+                return;
             }
             if (data.isInvertFlag() && !data.getWord().isEmpty()) {
                 a = new Grep(data.getWord(), data.getFile()).invert(a);
@@ -30,7 +31,7 @@ public class Main {
                 System.out.println(i);
             }
         } catch (IllegalArgumentException | IOException e) {
-            System.exit(1);
+            System.err.println("Что-то пошло не так");
         }
     }
 }

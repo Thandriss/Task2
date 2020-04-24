@@ -48,9 +48,29 @@ public class ComLine {
     public ComLine(String[] args) {
         CmdLineParser parser = new CmdLineParser(this);
         try{
+            int len = args.length;
+            if (len >= 2 && len <= 4) {
+                boolean wrongFile = args[len - 1].matches(".+\\.txt");
+                boolean d = args[len - 2].matches("[a-zA-Zа-яА-ЯёЁ]+");
+                if (!wrongFile || !d) {
+                    System.out.println("Неверно указан параметр. Попробуйте еще раз");
+                    System.exit(1);
+                }
+                if (len >= 3) {
+                    if (!args[0].equals("-i") && !args[0].equals("-r") && !args[0].equals("-v")) {
+                        System.out.println("Неверно указан параметр. Попробуйте еще раз");
+                        System.exit(1);
+                    }
+                    if (len == 4 && (!args[1].equals("-i") && !args[1].equals("-r") && !args[1].equals("-v"))) {
+                        System.out.println("Неверно указан параметр. Попробуйте еще раз");
+                        System.exit(1);
+                    }
+                }
+            } else {
+                System.out.println("Допишите или уберите один из параметров");
+                System.exit(1);
+            }
             parser.parseArgument(args);
-            boolean flag = file.toString().matches(".+\\.txt");
-            if (!flag) throw new IllegalArgumentException();
         } catch (IllegalArgumentException | CmdLineException e) {
             System.err.println("Неверно указан параметр. Попробуйте еще раз");
         }

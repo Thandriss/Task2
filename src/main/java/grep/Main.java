@@ -19,6 +19,10 @@ public class Main {
             } else {
                 System.err.println("Что-то пошло не так");
             }
+            if (a == null) {
+                System.out.println("Что-то пошло не так");
+                System.exit(1);
+            }
             if (data.isInvertFlag() && !data.getWord().isEmpty()) {
                 a = new Grep(data.getWord(), data.getFile()).invert(a);
             }

@@ -9,7 +9,7 @@ public class Main {
     public static void main (String[] args) throws IOException {
         try {
             ComLine data = new ComLine(args);
-            List<String> a = null;
+            List<String> a;
             if (((data.isRegex() && !data.getWord().isEmpty()) || !data.getWord().isEmpty()) && data.getFile().toString().matches(".+\\.txt")) {
                 if (data.isFlag()) {
                     a = new Grep(data.getWord(), data.getFile()).ignoreCase();
@@ -17,10 +17,6 @@ public class Main {
                     a = new Grep(data.getWord(), data.getFile()).filter();
                 }
             } else {
-                System.err.println("Что-то пошло не так");
-                return;
-            }
-            if (a == null) {
                 System.err.println("Что-то пошло не так");
                 return;
             }
